@@ -2,21 +2,26 @@ import React from "react";
 import styled from "styled-components";
 import { PRIMERY_COLOR } from "../../utils/ColorUtils";
 import HomeIcon from "@material-ui/icons/Home";
-import { Button, TextField } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 
 type Props = {};
 
 const Header: React.FC<Props> = () => {
   return (
     <PageContainer>
-      <HomeIcon fontSize="large" />
-      <TextField label="user名を入力" />
-      <Button variant="outlined">設定</Button>
+      <Box display="flex" justifyContent="center" p={3}>
+        <Title>LightBlue;</Title>
+        <HomeIcon fontSize="large" />
+      </Box>
     </PageContainer>
   );
 };
 
 export { Header };
+
+const Title = styled.h1`
+  margin: 0 auto;
+`;
 
 const PageContainer = styled.div`
   width: 100%;
