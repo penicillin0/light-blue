@@ -17,6 +17,12 @@ const Top: React.FC<Props> = ({ handleUserName }) => {
     }
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      onClick();
+    }
+  };
+
   return (
     <div>
       <Box py={2} />
@@ -26,6 +32,7 @@ const Top: React.FC<Props> = ({ handleUserName }) => {
           label="user名を入力"
           value={userName}
           onChange={handleChange}
+          onKeyPress={handleKeyPress}
         />
         <Box px={1} />
         <Button variant="outlined" onClick={onClick}>
