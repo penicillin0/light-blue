@@ -2,14 +2,32 @@ import React from "react";
 import styled from "styled-components";
 import { COLOR } from "../../utils/ColorUtils";
 import HomeIcon from "@material-ui/icons/Home";
-import { Box } from "@material-ui/core";
+import { Box, Link } from "@material-ui/core";
 
-type Props = {};
+type Props = {
+  userName: string;
+};
 
-const Header: React.FC<Props> = () => {
+const Header: React.FC<Props> = ({ userName }) => {
+  const atcoderUserPageLink = React.useMemo(
+    () => "https://atcoder.jp/users/" + userName,
+    [userName]
+  );
+
   return (
     <PageContainer>
       <Box display="flex" justifyContent="center" p={3}>
+        {userName !== "" ? (
+          <p>
+            こんにちは
+            <Box pr={1} component="span" />
+            <Link href={atcoderUserPageLink}>{userName}</Link>
+            <Box pr={1} component="span" />
+            さん
+          </p>
+        ) : (
+          <p />
+        )}
         <Title>LightBlue;</Title>
         <HomeIconWrap fontSize="large" />
       </Box>
