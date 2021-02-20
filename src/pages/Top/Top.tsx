@@ -1,24 +1,24 @@
-import React from "react";
-import { Box, Button, TextField, Typography } from "@material-ui/core";
+import React from 'react';
+import { Box, Button, TextField, Typography } from '@material-ui/core';
 
 type Props = {
   handleUserName: (userName: string) => void;
 };
 
 const Top: React.FC<Props> = ({ handleUserName }) => {
-  const [userName, setUserName] = React.useState<string>("");
+  const [userName, setUserName] = React.useState<string>('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserName(event.target.value);
   };
   const onClick = () => {
-    if (userName !== "") {
+    if (userName !== '') {
       handleUserName(userName);
     }
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       onClick();
     }
   };

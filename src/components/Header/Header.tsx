@@ -1,23 +1,22 @@
-import React from "react";
-import styled from "styled-components";
-import { COLOR } from "../../utils/ColorUtils";
-import HomeIcon from "@material-ui/icons/Home";
-import { Box, Link } from "@material-ui/core";
+import React from 'react';
+import styled from 'styled-components';
+import { COLOR } from '../../utils/ColorUtils';
+import HomeIcon from '@material-ui/icons/Home';
+import { Box, Link } from '@material-ui/core';
 
 type Props = {
   userName: string;
 };
 
 const Header: React.FC<Props> = ({ userName }) => {
-  const atcoderUserPageLink = React.useMemo(
-    () => "https://atcoder.jp/users/" + userName,
-    [userName]
-  );
+  const atcoderUserPageLink = React.useMemo(() => 'https://atcoder.jp/users/' + userName, [
+    userName,
+  ]);
 
   return (
     <PageContainer>
       <Box display="flex" justifyContent="center" p={3}>
-        {userName !== "" ? (
+        {userName !== '' ? (
           <p>
             こんにちは
             <Box pr={1} component="span" />
