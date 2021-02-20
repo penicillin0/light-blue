@@ -4,10 +4,11 @@ import './App.css';
 import { Header } from './components/Header';
 import { Top } from './pages/Top';
 import { getAtCoderStatus } from './api/apiClient';
+import { problemType } from './types/problem';
 
 function App() {
   const [userName, setUserName] = React.useState<string>('');
-  const [atcoderSolvedData, setAtcoderSolvedData] = React.useState<any[]>([]);
+  const [atcoderSolvedData, setAtcoderSolvedData] = React.useState<problemType[]>([]);
 
   console.log({ userName });
 
@@ -17,9 +18,8 @@ function App() {
   };
 
   const handleGetUserInfo = async () => {
-    const res = await getAtCoderStatus(userName);
+    const res: problemType[] = await getAtCoderStatus(userName);
     setAtcoderSolvedData(res);
-    console.log(res);
   };
 
   React.useEffect(() => {}, []);
