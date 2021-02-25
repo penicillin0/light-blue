@@ -1,4 +1,14 @@
-import { Button } from '@material-ui/core';
+import {
+  Button,
+  Chip,
+  Link,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from '@material-ui/core';
 import React from 'react';
 import './App.css';
 import { Header } from './components/Header';
@@ -6,6 +16,8 @@ import { Top } from './pages/Top';
 import { getAtCoderStatus } from './api/apiClient';
 import { problemType } from './types/problem';
 import { problems } from './data/constants';
+import styled from 'styled-components';
+import { COLOR } from './utils/ColorUtils';
 
 function App() {
   const [userName, setUserName] = React.useState<string>('');
@@ -40,7 +52,7 @@ function App() {
       {userName === '' ? (
         <Top handleUserName={handleUserName} />
       ) : (
-        <div>
+        <TableContainerWrapper>
           こんにちは{userName} さん
           <br />
           <Button
@@ -50,30 +62,70 @@ function App() {
           >
             apiを叩く
           </Button>
-          {problems.map((problem) => {
-            const endPoint = problem.url.split('/').splice(-1)[0];
-            const isAtcoder = problem.url.includes('atcoder.jp');
-            if (!isAtcoder) {
-              return <p>{problem.problem_id}-AtCoderの問題ではありません。</p>;
-            }
-            if (solvedProblemIds.has(endPoint)) {
-              return (
-                <p>
-                  {problem.problem_id}-{problem.title}解いています
-                </p>
-              );
-            } else {
-              return (
-                <p>
-                  {problem.problem_id}-{problem.title}解いてません
-                </p>
-              );
-            }
-          })}
-        </div>
+          <br />
+          <TableContainer>
+            <Table size="medium" aria-label="a dense table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="right">Order</TableCell>
+                  <TableCell>Problem Title</TableCell>
+                  <TableCell align="right">domain</TableCell>
+                  <TableCell align="right">status</TableCell>
+                  <TableCell align="right">Problem Link</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {problems.map((problem) => {
+                  const endPoint = problem.url.split('/').splice(-1)[0];
+                  const isAtcoder = problem.url.includes('atcoder.jp');
+                  const isAC = solvedProblemIds.has(endPoint);
+                  const atcoderLink = problem.url;
+                  return (
+                    <TableRow key={problem.title} hover={true}>
+                      <TableCell align="right">{problem.problem_id}</TableCell>
+                      <TableCell component="th" scope="row">
+                        {problem.title}
+                      </TableCell>
+                      <TableCell align="right">
+                        {isAtcoder ? 'AtCoder' : 'JOI'}
+                      </TableCell>
+                      <TableCell align="right">
+                        {isAC ? (
+                          <Chip
+                            variant="outlined"
+                            color="secondary"
+                            label="AC"
+                          />
+                        ) : (
+                          'ー'
+                        )}
+                      </TableCell>
+                      <TableCell align="right">
+                        {isAtcoder && !isAC ? (
+                          <Link href={atcoderLink} color="secondary">
+                            Solve It !!!
+                          </Link>
+                        ) : (
+                          <Link href={atcoderLink}>link</Link>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </TableContainerWrapper>
       )}
     </div>
   );
 }
+
+const TableContainerWrapper = styled.div`
+  background: ${COLOR.LIGHT_GREY};
+  padding-top: 2%;
+  padding-left: 10%;
+  padding-right: 10%;
+`;
 
 export default App;
