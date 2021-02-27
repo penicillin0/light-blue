@@ -34,7 +34,6 @@ function App() {
     AizuProblemType[]
   >([]);
 
-  console.log({ userName });
 
   const handleUserName = (userName: string) => {
     if (userName === '') return;
@@ -44,11 +43,9 @@ function App() {
   const handleGetUserInfo = async () => {
     const resAtcoder: AtCoderProblemType[] = await getAtCoderStatus(userName);
     setAtcoderSolvedDatas(resAtcoder);
-    console.log({ resAtcoder });
 
     const resAizu: AizuProblemType[] = await getAizuStatus(userName);
     setAizuSolvedDatas(resAizu);
-    console.log({ resAizu });
   };
 
   React.useEffect(() => {}, []);
@@ -88,7 +85,6 @@ function App() {
                     .splice(-1)[0]
                     .replace('description.jsp?id=', '')
                     .replace('&lang=ja', '');
-                  console.log({ endPoint });
                   const isAtcoder = problem.url.includes('atcoder.jp');
                   const isAizu = problem.url.includes('judge.u-aizu.ac.jp');
                   const status = isAtcoder
