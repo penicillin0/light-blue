@@ -13,24 +13,26 @@ import React from 'react';
 import './App.css';
 import { Header } from './components/Header';
 import { Top } from './pages/Top';
-import { getAtCoderStatus } from './api/apiClient';
-import { problemType } from './types/problem';
+import { getAtCoderStatus, getAizuStatus } from './api/apiClient';
+import { AtCoderProblemType, AizuProblemType } from './types/problem';
 import { problems } from './data/constants';
 import styled from 'styled-components';
 import { COLOR } from './utils/ColorUtils';
 import {
   getAtCoderDisplayStatus,
+  getAizuDisplayStatus,
   getColorFromAtCoderStatus,
+  getColorFromAizuStatus,
 } from './utils/functions';
 
 function App() {
   const [userName, setUserName] = React.useState<string>('');
   const [atcoderSolvedDatas, setAtcoderSolvedDatas] = React.useState<
-    problemType[]
+    AtCoderProblemType[]
   >([]);
-  const [solvedProblemIds, setSolvedProblemIds] = React.useState<Set<string>>(
-    new Set()
-  );
+  const [aizuSolvedDatas, setAizuSolvedDatas] = React.useState<
+    AizuProblemType[]
+  >([]);
 
   console.log({ userName });
 
@@ -40,12 +42,13 @@ function App() {
   };
 
   const handleGetUserInfo = async () => {
-    const res: problemType[] = await getAtCoderStatus(userName);
-    setAtcoderSolvedDatas(res);
-    console.log({ res });
-    setSolvedProblemIds(
-      new Set(res.filter((r) => r.result === 'AC').map((r) => r.problem_id))
-    );
+    const resAtcoder: AtCoderProblemType[] = await getAtCoderStatus(userName);
+    setAtcoderSolvedDatas(resAtcoder);
+    console.log({ resAtcoder });
+
+    const resAizu: AizuProblemType[] = await getAizuStatus(userName);
+    setAizuSolvedDatas(resAizu);
+    console.log({ resAizu });
   };
 
   React.useEffect(() => {}, []);
@@ -80,13 +83,25 @@ function App() {
               </TableHead>
               <TableBody>
                 {problems.map((problem) => {
-                  const endPoint = problem.url.split('/').splice(-1)[0];
+                  const endPoint = problem.url
+                    .split('/')
+                    .splice(-1)[0]
+                    .replace('description.jsp?id=', '')
+                    .replace('&lang=ja', '');
+                  console.log({ endPoint });
                   const isAtcoder = problem.url.includes('atcoder.jp');
-                  const status = getAtCoderDisplayStatus(
-                    atcoderSolvedDatas
-                      .filter((data) => data.problem_id === endPoint)
-                      .map((data) => data.result)
-                  );
+                  const isAizu = problem.url.includes('judge.u-aizu.ac.jp');
+                  const status = isAtcoder
+                    ? getAtCoderDisplayStatus(
+                        atcoderSolvedDatas
+                          .filter((data) => data.problem_id === endPoint)
+                          .map((data) => data.result)
+                      )
+                    : getAizuDisplayStatus(
+                        aizuSolvedDatas
+                          .filter((data) => data.problemId === endPoint)
+                          .map((data) => data.status)
+                      );
                   const atcoderLink = problem.url;
                   return (
                     <TableRow key={problem.title} hover={true}>
@@ -95,13 +110,17 @@ function App() {
                         {problem.title}
                       </TableCell>
                       <TableCell align="right">
-                        {isAtcoder ? 'AtCoder' : 'aizu'}
+                        {isAtcoder ? 'atcoder.jp' : 'judge.u-aizu.ac.jp'}
                       </TableCell>
                       <TableCell align="right">
                         {status !== null ? (
                           <Chip
                             variant="outlined"
-                            color={getColorFromAtCoderStatus(status)}
+                            color={
+                              isAtcoder
+                                ? getColorFromAtCoderStatus(status)
+                                : getColorFromAizuStatus(status)
+                            }
                             label={status}
                           />
                         ) : (
@@ -109,7 +128,7 @@ function App() {
                         )}
                       </TableCell>
                       <TableCell align="right">
-                        {isAtcoder && status !== 'AC' ? (
+                        {status !== 'AC' && status !== 'Accept' ? (
                           <Link href={atcoderLink} color="secondary">
                             Solve It !!!
                           </Link>
