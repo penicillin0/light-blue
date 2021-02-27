@@ -18,10 +18,14 @@ import { problemType } from './types/problem';
 import { problems } from './data/constants';
 import styled from 'styled-components';
 import { COLOR } from './utils/ColorUtils';
+import {
+  getAtCoderDisplayStatus,
+  getColorFromAtCoderStatus,
+} from './utils/functions';
 
 function App() {
   const [userName, setUserName] = React.useState<string>('');
-  const [atcoderSolvedData, setAtcoderSolvedData] = React.useState<
+  const [atcoderSolvedDatas, setAtcoderSolvedDatas] = React.useState<
     problemType[]
   >([]);
   const [solvedProblemIds, setSolvedProblemIds] = React.useState<Set<string>>(
@@ -37,8 +41,8 @@ function App() {
 
   const handleGetUserInfo = async () => {
     const res: problemType[] = await getAtCoderStatus(userName);
-    setAtcoderSolvedData(res);
-    console.log(res);
+    setAtcoderSolvedDatas(res);
+    console.log({ res });
     setSolvedProblemIds(
       new Set(res.filter((r) => r.result === 'AC').map((r) => r.problem_id))
     );
@@ -78,7 +82,11 @@ function App() {
                 {problems.map((problem) => {
                   const endPoint = problem.url.split('/').splice(-1)[0];
                   const isAtcoder = problem.url.includes('atcoder.jp');
-                  const isAC = solvedProblemIds.has(endPoint);
+                  const status = getAtCoderDisplayStatus(
+                    atcoderSolvedDatas
+                      .filter((data) => data.problem_id === endPoint)
+                      .map((data) => data.result)
+                  );
                   const atcoderLink = problem.url;
                   return (
                     <TableRow key={problem.title} hover={true}>
@@ -87,21 +95,21 @@ function App() {
                         {problem.title}
                       </TableCell>
                       <TableCell align="right">
-                        {isAtcoder ? 'AtCoder' : 'JOI'}
+                        {isAtcoder ? 'AtCoder' : 'aizu'}
                       </TableCell>
                       <TableCell align="right">
-                        {isAC ? (
+                        {status !== null ? (
                           <Chip
                             variant="outlined"
-                            color="secondary"
-                            label="AC"
+                            color={getColorFromAtCoderStatus(status)}
+                            label={status}
                           />
                         ) : (
                           'ー'
                         )}
                       </TableCell>
                       <TableCell align="right">
-                        {isAtcoder && !isAC ? (
+                        {isAtcoder && status !== 'AC' ? (
                           <Link href={atcoderLink} color="secondary">
                             Solve It !!!
                           </Link>
