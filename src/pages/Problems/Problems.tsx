@@ -95,10 +95,22 @@ const Problems: React.FC<Props> = ({ userName }) => {
                     {status !== null ? (
                       <Chip
                         variant="outlined"
-                        color={
+                        style={
                           isAtcoder
-                            ? getColorFromAtCoderStatus(status)
-                            : getColorFromAizuStatus(status)
+                            ? {
+                                backgroundColor: getColorFromAtCoderStatus(
+                                  status
+                                ),
+                                color: '#FFFFFF',
+                                borderColor: 'transparent',
+                                borderRadius: '8px',
+                              }
+                            : {
+                                backgroundColor: getColorFromAizuStatus(status),
+                                color: '#FFFFFF',
+                                borderColor: 'transparent',
+                                borderRadius: '8px',
+                              }
                         }
                         label={status}
                       />
