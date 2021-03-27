@@ -9,13 +9,14 @@ type Props = {
 };
 
 const Header: React.FC<Props> = ({ userName }) => {
-  const atcoderUserPageLink = React.useMemo(() => 'https://atcoder.jp/users/' + userName, [
-    userName,
-  ]);
+  const atcoderUserPageLink = React.useMemo(
+    () => 'https://atcoder.jp/users/' + userName,
+    [userName]
+  );
 
   return (
     <PageContainer>
-      <Box display="flex" justifyContent="center" p={3}>
+      <LeftContainer>
         {userName !== '' ? (
           <p>
             こんにちは
@@ -27,14 +28,42 @@ const Header: React.FC<Props> = ({ userName }) => {
         ) : (
           <p />
         )}
+      </LeftContainer>
+      <TitleContainer>
         <Title>LightBlue;</Title>
+      </TitleContainer>
+      <RightContainer>
         <HomeIconWrap fontSize="large" />
-      </Box>
+      </RightContainer>
     </PageContainer>
   );
 };
 
 export { Header };
+
+const PageContainer = styled.div`
+  width: 100%;
+  height: 96px;
+  background-color: ${COLOR.PRIMERY_COLOR};
+  display: flex;
+  align-items: center;
+`;
+
+const LeftContainer = styled.div`
+  width: 23%;
+  text-align: left;
+  margin-left: 2%;
+`;
+
+const TitleContainer = styled.div`
+  width: 50%;
+`;
+
+const RightContainer = styled.div`
+  text-align: right;
+  width: 23%;
+  margin-right: 2%;
+`;
 
 const Title = styled.h1`
   margin: 0 auto;
@@ -43,10 +72,4 @@ const Title = styled.h1`
 
 const HomeIconWrap = styled(HomeIcon)`
   color: ${COLOR.DARK};
-`;
-
-const PageContainer = styled.div`
-  width: 100%;
-  height: 96px;
-  background-color: ${COLOR.PRIMERY_COLOR};
 `;
