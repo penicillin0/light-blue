@@ -6,12 +6,15 @@ import { COLOR } from '../../utils/ColorUtils';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { useSnackbar } from 'notistack';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { Link } from 'react-router-dom';
+import { UserInfoType } from '../../types/User';
 
 type Props = {
-  handleUserName: (userName: string) => void;
+  handleUserNames: (userNames: UserInfoType | undefined) => void;
 };
 
-const Top: React.FC<Props> = ({ handleUserName }) => {
+const Top: React.FC<Props> = ({ handleUserNames }) => {
   const { register, watch, setValue } = useForm({ shouldUnregister: false });
 
   const { enqueueSnackbar } = useSnackbar();
@@ -39,25 +42,47 @@ const Top: React.FC<Props> = ({ handleUserName }) => {
     if ('aizuUserName' in userNames) {
       localStorage.setItem('lightBlue_aizuUserName', userNames.aizuUserName);
     }
+
+    const newUserNames = {
+      atcoderUserName: userNames.atcoderUserName,
+      aizuUserName: userNames.aizuUserName,
+    };
+    handleUserNames(newUserNames);
+
     enqueueSnackbar('Your User Name is updated', {
       variant: 'success',
-      autoHideDuration: 2000,
+      autoHideDuration: 1500,
+      anchorOrigin: {
+        vertical: 'top',
+        horizontal: 'left',
+      },
     });
   };
 
   return (
     <PageContainer>
-      <Box py={2} />
+      <ReturnButtonContainer>
+        <Link to="/" style={{ textDecoration: 'none' }}>
+          <Button
+            variant="outlined"
+            color="primary"
+            style={{ textTransform: 'none' }}
+          >
+            <ArrowBackIcon />
+            &nbsp; Problem List
+          </Button>
+        </Link>
+      </ReturnButtonContainer>
       <Typography variant="h4">Account Info</Typography>
       <Box display="flex" justifyContent="center" p={3}>
         <FormCard>
           <Typography variant="h5" noWrap={true}>
             AtCoder
           </Typography>
+          <Box py={1} />
           <TextField
             name="atcoderUserName"
             inputRef={register()}
-            label="AtCoder"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -68,10 +93,10 @@ const Top: React.FC<Props> = ({ handleUserName }) => {
           />
           <Box py={3} />
           <Typography variant="h6">AIZU ONLINE JUDGE</Typography>
+          <Box py={1} />
           <TextField
             name="aizuUserName"
             inputRef={register()}
-            label="AIZU"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -90,6 +115,12 @@ const Top: React.FC<Props> = ({ handleUserName }) => {
     </PageContainer>
   );
 };
+
+const ReturnButtonContainer = styled.div`
+  padding-top: 2vh;
+  padding-left: 2vh;
+  text-align: left;
+`;
 
 const PageContainer = styled.div`
   background-color: ${COLOR.PRIMERY_HIGH_LIGHT_COLOR};

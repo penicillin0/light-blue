@@ -1,39 +1,43 @@
 import React from 'react';
 import styled from 'styled-components';
 import { COLOR } from '../../utils/ColorUtils';
-import HomeIcon from '@material-ui/icons/Home';
-import { Box, Link } from '@material-ui/core';
+import SettingsIcon from '@material-ui/icons/Settings';
+import { Box } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { UserInfoType } from '../../types/User';
 
 type Props = {
-  userName: string;
+  userNames: UserInfoType | undefined;
 };
 
-const Header: React.FC<Props> = ({ userName }) => {
+const Header: React.FC<Props> = ({ userNames }) => {
   const atcoderUserPageLink = React.useMemo(
-    () => 'https://atcoder.jp/users/' + userName,
-    [userName]
+    () => 'https://atcoder.jp/users/' + userNames?.atcoderUserName,
+    [userNames]
   );
 
   return (
     <PageContainer>
       <LeftContainer>
-        {userName !== '' ? (
+        {userNames && (
           <p>
             こんにちは
             <Box pr={1} component="span" />
-            <Link href={atcoderUserPageLink}>{userName}</Link>
+            <a href={atcoderUserPageLink}>{userNames.atcoderUserName}</a>
             <Box pr={1} component="span" />
             さん
           </p>
-        ) : (
-          <p />
         )}
       </LeftContainer>
       <TitleContainer>
-        <Title>LightBlue;</Title>
+        <Link to="/" style={{ textDecoration: 'none' }}>
+          <Title>LightBlue;</Title>
+        </Link>
       </TitleContainer>
       <RightContainer>
-        <HomeIconWrap fontSize="large" />
+        <Link to="/setting" style={{ textDecoration: 'none' }}>
+          <SettingIconWrap fontSize="large" />
+        </Link>
       </RightContainer>
     </PageContainer>
   );
@@ -66,10 +70,17 @@ const RightContainer = styled.div`
 `;
 
 const Title = styled.h1`
+  width: 200px;
   margin: 0 auto;
   color: ${COLOR.DARK};
+  :hover {
+    color: ${COLOR.GREY};
+  }
 `;
 
-const HomeIconWrap = styled(HomeIcon)`
+const SettingIconWrap = styled(SettingsIcon)`
   color: ${COLOR.DARK};
+  :hover {
+    color: ${COLOR.GREY};
+  }
 `;

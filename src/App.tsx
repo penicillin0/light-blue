@@ -4,23 +4,31 @@ import { Header } from './components/Header';
 import { Top } from './pages/Top';
 import { Problems } from './pages/Problems';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { UserInfoType } from './types/User';
 
 function App() {
-  const [userName, setUserName] = React.useState<string>('');
+  const [userNames, setAUserNames] = React.useState<UserInfoType | undefined>();
 
-  const handleUserName = (userName: string) => {
-    if (userName === '') return;
-    setUserName(userName);
+  const handleUserNames = (userNames: UserInfoType | undefined) => {
+    setAUserNames(userNames);
   };
+
+  React.useEffect(() => {
+    console.log({ userNames });
+  }, [userNames]);
 
   return (
     <div className="App">
-      <Header userName={userName} />
       <Router>
-        <Route exact path="/" component={Problems} />
+        <Header userNames={userNames} />
+        <Route
+          exact
+          path="/"
+          render={() => <Problems userNames={userNames} />}
+        />
         <Route
           path="/setting"
-          render={() => <Top handleUserName={handleUserName} />}
+          render={() => <Top handleUserNames={handleUserNames} />}
         />
       </Router>
     </div>
