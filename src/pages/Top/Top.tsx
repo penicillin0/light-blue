@@ -140,7 +140,7 @@ const Top: React.FC<Props> = ({ handleUserNames }) => {
 };
 
 const ReturnButtonContainer = styled.div`
-  padding-top: 2vh;
+  padding-top: 120px;
   padding-left: 2vh;
   text-align: left;
 `;

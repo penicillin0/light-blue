@@ -148,9 +148,7 @@ const Problems: React.FC<Props> = ({ userNames }) => {
 
 const TableContainerWrapper = styled.div`
   background: ${COLOR.LIGHT_GREY};
-  padding-top: 2%;
-  padding-left: 10%;
-  padding-right: 10%;
+  padding: 120px 10%;
 `;
 
 export { Problems };
