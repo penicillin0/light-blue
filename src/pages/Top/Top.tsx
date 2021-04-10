@@ -64,10 +64,6 @@ const Top: React.FC<Props> = ({ handleUserNames }) => {
     });
   };
 
-  React.useEffect(() => {
-    console.log(errors.atcoderUserName);
-  }, [errors]);
-
   return (
     <PageContainer>
       <ReturnButtonContainer>
