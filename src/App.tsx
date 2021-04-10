@@ -6,8 +6,6 @@ import { Problems } from './pages/Problems';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { UserInfoType } from './types/user';
 
-// test
-
 function App() {
   const [userNames, setAUserNames] = React.useState<UserInfoType | undefined>();
 
