@@ -13,10 +13,6 @@ function App() {
     setAUserNames(userNames);
   };
 
-  React.useEffect(() => {
-    console.log({ userNames });
-  }, [userNames]);
-
   return (
     <div className="App">
       <Router>
