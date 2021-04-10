@@ -46,6 +46,8 @@ const Header: React.FC<Props> = ({ userNames }) => {
 export { Header };
 
 const PageContainer = styled.div`
+  z-index: 999;
+  position: fixed;
   width: 100%;
   height: 96px;
   background-color: ${COLOR.PRIMERY_COLOR};
