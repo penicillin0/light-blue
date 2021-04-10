@@ -21,12 +21,13 @@ import {
   getColorFromAtCoderStatus,
   getColorFromAizuStatus,
 } from '../../utils/functions';
+import { UserInfoType } from '../../types/user';
 
 type Props = {
-  userName: string;
+  userNames: UserInfoType | undefined;
 };
 
-const Problems: React.FC<Props> = ({ userName }) => {
+const Problems: React.FC<Props> = ({ userNames }) => {
   const [atcoderSolvedDatas, setAtcoderSolvedDatas] = React.useState<
     AtCoderProblemType[]
   >([]);
@@ -35,16 +36,24 @@ const Problems: React.FC<Props> = ({ userName }) => {
   >([]);
 
   const handleGetUserInfo = async () => {
-    const resAtcoder: AtCoderProblemType[] = await getAtCoderStatus(userName);
-    setAtcoderSolvedDatas(resAtcoder);
+    if (userNames?.atcoderUserName !== undefined) {
+      const resAtcoder: AtCoderProblemType[] = await getAtCoderStatus(
+        userNames?.atcoderUserName
+      );
+      setAtcoderSolvedDatas(resAtcoder);
+    }
 
-    const resAizu: AizuProblemType[] = await getAizuStatus(userName);
-    setAizuSolvedDatas(resAizu);
+    if (userNames?.aizuUserName !== undefined) {
+      const resAizu: AizuProblemType[] = await getAizuStatus(
+        userNames?.aizuUserName
+      );
+      setAizuSolvedDatas(resAizu);
+    }
   };
 
   return (
     <TableContainerWrapper>
-      こんにちは{userName} さん
+      こんにちは{userNames?.atcoderUserName} さん
       <br />
       <Button variant="contained" color="secondary" onClick={handleGetUserInfo}>
         apiを叩く
