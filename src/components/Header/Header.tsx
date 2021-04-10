@@ -4,7 +4,7 @@ import { COLOR } from '../../utils/ColorUtils';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Box } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { UserInfoType } from '../../types/User';
+import { UserInfoType } from '../../types/user';
 
 type Props = {
   userNames: UserInfoType | undefined;

@@ -4,7 +4,7 @@ import { Header } from './components/Header';
 import { Top } from './pages/Top';
 import { Problems } from './pages/Problems';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { UserInfoType } from './types/User';
+import { UserInfoType } from './types/user';
 
 function App() {
   const [userNames, setAUserNames] = React.useState<UserInfoType | undefined>();

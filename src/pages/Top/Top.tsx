@@ -8,14 +8,19 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import { useSnackbar } from 'notistack';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Link } from 'react-router-dom';
-import { UserInfoType } from '../../types/User';
+import { UserInfoType } from '../../types/user';
 
 type Props = {
   handleUserNames: (userNames: UserInfoType | undefined) => void;
 };
 
+// 半角 or 全角スペースで始まらない
+const WHITE_SPACE_REG_EXP = /^(?!(\s|[[:blank:]])).*$/;
+
 const Top: React.FC<Props> = ({ handleUserNames }) => {
-  const { register, watch, setValue } = useForm({ shouldUnregister: false });
+  const { register, watch, setValue, handleSubmit, errors } = useForm({
+    shouldUnregister: false,
+  });
 
   const { enqueueSnackbar } = useSnackbar();
   const userNames = watch();
@@ -59,6 +64,10 @@ const Top: React.FC<Props> = ({ handleUserNames }) => {
     });
   };
 
+  React.useEffect(() => {
+    console.log(errors.atcoderUserName);
+  }, [errors]);
+
   return (
     <PageContainer>
       <ReturnButtonContainer>
@@ -82,7 +91,14 @@ const Top: React.FC<Props> = ({ handleUserNames }) => {
           <Box py={1} />
           <TextField
             name="atcoderUserName"
-            inputRef={register()}
+            error={errors.atcoderUserName}
+            helperText={errors.atcoderUserName?.['message']}
+            inputRef={register({
+              pattern: {
+                value: WHITE_SPACE_REG_EXP,
+                message: 'Invalid input.',
+              },
+            })}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -96,7 +112,14 @@ const Top: React.FC<Props> = ({ handleUserNames }) => {
           <Box py={1} />
           <TextField
             name="aizuUserName"
-            inputRef={register()}
+            error={errors.aizuUserName}
+            helperText={errors.aizuUserName?.['message']}
+            inputRef={register({
+              pattern: {
+                value: WHITE_SPACE_REG_EXP,
+                message: 'Invalid input.',
+              },
+            })}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -106,7 +129,11 @@ const Top: React.FC<Props> = ({ handleUserNames }) => {
             }}
           />
           <Box pt={3}>
-            <Button color="primary" variant="contained" onClick={handleOnClick}>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={handleSubmit(handleOnClick)}
+            >
               Save
             </Button>
           </Box>

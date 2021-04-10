@@ -21,7 +21,7 @@ import {
   getColorFromAtCoderStatus,
   getColorFromAizuStatus,
 } from '../../utils/functions';
-import { UserInfoType } from '../../types/User';
+import { UserInfoType } from '../../types/user';
 
 type Props = {
   userNames: UserInfoType | undefined;
