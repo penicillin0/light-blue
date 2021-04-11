@@ -23,7 +23,7 @@ type FormValues = {
   aizuUserName: string;
 };
 
-export const Setting: React.FC<Props> = () => {
+export const Setting: React.FC<Props> = ({ userNames, updateUserNames }) => {
   const {
     register,
     watch,
@@ -35,9 +35,9 @@ export const Setting: React.FC<Props> = () => {
   });
 
   const { enqueueSnackbar } = useSnackbar();
-  const userNames = watch();
 
-  const onSubmit: SubmitHandler<FormValues> = () => {
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    updateUserNames(data);
     enqueueSnackbar('Your User Name is updated', {
       variant: 'success',
       autoHideDuration: 1500,

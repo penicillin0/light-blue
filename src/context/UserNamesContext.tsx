@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { UserInfoType } from '../types/User';
 
 const UserNamesContext = React.createContext<UserInfoType | null>(null);
-const UserNamesUpdateContext = React.createContext<React.Dispatch<
-  React.SetStateAction<UserInfoType>
-> | null>(null);
+const UserNamesUpdateContext = React.createContext<
+  ((value: UserInfoType) => void) | null
+>(null);
 
 export const useUserNames = () => {
   const userNames = React.useContext(UserNamesContext);
@@ -29,8 +29,20 @@ export const UserNamesProvider: React.FC = (props) => {
       aizuUserName: window.localStorage.getItem('lightBlue_atcoderUserName'),
     };
   });
+
+  const updateUserNames = React.useCallback((value: UserInfoType) => {
+    setUserNames(value);
+    window.localStorage.setItem(
+      'lightBlue_atcoderUserName',
+      value.atcoderUserName ?? ''
+    );
+    window.localStorage.setItem(
+      'lightBlue_aizuUserName',
+      value.aizuUserName ?? ''
+    );
+  }, []);
   return (
-    <UserNamesUpdateContext.Provider value={setUserNames}>
+    <UserNamesUpdateContext.Provider value={updateUserNames}>
       <UserNamesContext.Provider value={userNames}>
         {props.children}
       </UserNamesContext.Provider>
