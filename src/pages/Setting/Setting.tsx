@@ -8,16 +8,16 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import { useSnackbar } from 'notistack';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Link } from 'react-router-dom';
-import { UserInfoType } from '../../types/user';
+import { UserInfoType } from '../../types/User';
 
 type Props = {
-  handleUserNames: (userNames: UserInfoType | undefined) => void;
+  handleUserNames: (userNames: UserInfoType | null) => void;
 };
 
 // 半角 or 全角スペースで始まらない
 const WHITE_SPACE_REG_EXP = /^(?!(\s|[[:blank:]])).*$/;
 
-const Top: React.FC<Props> = ({ handleUserNames }) => {
+export const Setting: React.FC<Props> = ({ handleUserNames }) => {
   const { register, watch, setValue, handleSubmit, errors } = useForm({
     shouldUnregister: false,
   });
@@ -158,5 +158,3 @@ const FormCard = styled.div`
   background-color: ${COLOR.WHITE};
   box-shadow: 4px 4px 8px ${COLOR.GREY};
 `;
-
-export { Top };

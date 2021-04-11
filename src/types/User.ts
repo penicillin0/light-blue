@@ -1,4 +1,5 @@
 export type UserInfoType = {
-  atcoderUserName: string | undefined
-  aizuUserName: string | undefined
+  atcoderUserName: string | null
+  aizuUserName: string | null
 }
+

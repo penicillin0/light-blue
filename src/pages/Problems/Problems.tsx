@@ -21,10 +21,10 @@ import {
   getColorFromAtCoderStatus,
   getColorFromAizuStatus,
 } from '../../utils/functions';
-import { UserInfoType } from '../../types/user';
+import { UserInfoType } from '../../types/User';
 
 type Props = {
-  userNames: UserInfoType | undefined;
+  userNames: UserInfoType | null;
 };
 
 const Problems: React.FC<Props> = ({ userNames }) => {
@@ -35,20 +35,33 @@ const Problems: React.FC<Props> = ({ userNames }) => {
     AizuProblemType[]
   >([]);
 
-  const handleGetUserInfo = async () => {
-    if (userNames?.atcoderUserName !== undefined) {
-      const resAtcoder: AtCoderProblemType[] = await getAtCoderStatus(
-        userNames?.atcoderUserName
-      );
-      setAtcoderSolvedDatas(resAtcoder);
+  const getAtCoderInfo = async (
+    atcoderUserName: UserInfoType['atcoderUserName']
+  ) => {
+    if (atcoderUserName === null) {
+      return;
     }
 
-    if (userNames?.aizuUserName !== undefined) {
-      const resAizu: AizuProblemType[] = await getAizuStatus(
-        userNames?.aizuUserName
-      );
-      setAizuSolvedDatas(resAizu);
+    const resAtcoder: AtCoderProblemType[] = await getAtCoderStatus(
+      atcoderUserName
+    );
+    setAtcoderSolvedDatas(resAtcoder);
+  };
+
+  const getAizuInfo = async (aizuUserName: UserInfoType['aizuUserName']) => {
+    if (aizuUserName === null) {
+      return;
     }
+      const resAizu: AizuProblemType[] = await getAizuStatus(aizuUserName);
+      setAizuSolvedDatas(resAizu);
+  };
+
+  const handleGetUserInfo = async () => {
+    if (!userNames) {
+      return;
+    }
+    await getAtCoderInfo(userNames.atcoderUserName);
+    await getAizuInfo(userNames.aizuUserName);
   };
 
   return (
