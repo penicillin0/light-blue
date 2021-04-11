@@ -11,13 +11,14 @@ import { Link } from 'react-router-dom';
 import { UserInfoType } from '../../types/User';
 
 type Props = {
-  handleUserNames: (userNames: UserInfoType | null) => void;
+  userNames: UserInfoType;
+  updateUserNames: (value: UserInfoType) => void;
 };
 
 // 半角 or 全角スペースで始まらない
 const WHITE_SPACE_REG_EXP = /^(?!(\s|[[:blank:]])).*$/;
 
-export const Setting: React.FC<Props> = ({ handleUserNames }) => {
+export const Setting: React.FC<Props> = () => {
   const { register, watch, setValue, handleSubmit, errors } = useForm({
     shouldUnregister: false,
   });
@@ -25,35 +26,7 @@ export const Setting: React.FC<Props> = ({ handleUserNames }) => {
   const { enqueueSnackbar } = useSnackbar();
   const userNames = watch();
 
-  React.useEffect(() => {
-    if (localStorage.getItem('lightBlue_atcoderUserName') !== null) {
-      setValue(
-        'atcoderUserName',
-        localStorage.getItem('lightBlue_atcoderUserName')
-      );
-    }
-    if (localStorage.getItem('lightBlue_aizuUserName') !== null) {
-      setValue('aizuUserName', localStorage.getItem('lightBlue_aizuUserName'));
-    }
-  }, [setValue]);
-
-  const handleOnClick = () => {
-    if ('atcoderUserName' in userNames) {
-      localStorage.setItem(
-        'lightBlue_atcoderUserName',
-        userNames.atcoderUserName
-      );
-    }
-    if ('aizuUserName' in userNames) {
-      localStorage.setItem('lightBlue_aizuUserName', userNames.aizuUserName);
-    }
-
-    const newUserNames = {
-      atcoderUserName: userNames.atcoderUserName,
-      aizuUserName: userNames.aizuUserName,
-    };
-    handleUserNames(newUserNames);
-
+  const onSubmit = () => {
     enqueueSnackbar('Your User Name is updated', {
       variant: 'success',
       autoHideDuration: 1500,
@@ -79,62 +52,60 @@ export const Setting: React.FC<Props> = ({ handleUserNames }) => {
         </Link>
       </ReturnButtonContainer>
       <Typography variant="h4">Account Info</Typography>
-      <Box display="flex" justifyContent="center" p={3}>
-        <FormCard>
-          <Typography variant="h5" noWrap={true}>
-            AtCoder
-          </Typography>
-          <Box py={1} />
-          <TextField
-            name="atcoderUserName"
-            error={errors.atcoderUserName}
-            helperText={errors.atcoderUserName?.['message']}
-            inputRef={register({
-              pattern: {
-                value: WHITE_SPACE_REG_EXP,
-                message: 'Invalid input.',
-              },
-            })}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <AccountCircle />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Box py={3} />
-          <Typography variant="h6">AIZU ONLINE JUDGE</Typography>
-          <Box py={1} />
-          <TextField
-            name="aizuUserName"
-            error={errors.aizuUserName}
-            helperText={errors.aizuUserName?.['message']}
-            inputRef={register({
-              pattern: {
-                value: WHITE_SPACE_REG_EXP,
-                message: 'Invalid input.',
-              },
-            })}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <AccountCircle />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Box pt={3}>
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={handleSubmit(handleOnClick)}
-            >
-              Save
-            </Button>
-          </Box>
-        </FormCard>
-      </Box>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Box display="flex" justifyContent="center" p={3}>
+          <FormCard>
+            <Typography variant="h5" noWrap={true}>
+              AtCoder
+            </Typography>
+            <Box py={1} />
+            <TextField
+              name="atcoderUserName"
+              error={errors.atcoderUserName}
+              helperText={errors.atcoderUserName?.['message']}
+              inputRef={register({
+                pattern: {
+                  value: WHITE_SPACE_REG_EXP,
+                  message: 'Invalid input.',
+                },
+              })}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <AccountCircle />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Box py={3} />
+            <Typography variant="h6">AIZU ONLINE JUDGE</Typography>
+            <Box py={1} />
+            <TextField
+              name="aizuUserName"
+              error={errors.aizuUserName}
+              helperText={errors.aizuUserName?.['message']}
+              inputRef={register({
+                pattern: {
+                  value: WHITE_SPACE_REG_EXP,
+                  message: 'Invalid input.',
+                },
+              })}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <AccountCircle />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Box pt={3}>
+              <Button color="primary" variant="contained" type="submit">
+                Save
+              </Button>
+            </Box>
+          </FormCard>
+        </Box>
+      </form>
     </PageContainer>
   );
 };
