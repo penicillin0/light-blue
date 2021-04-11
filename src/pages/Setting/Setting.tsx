@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Button, TextField, Typography } from '@material-ui/core';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
 import { COLOR } from '../../utils/ColorUtils';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -18,15 +18,26 @@ type Props = {
 // 半角 or 全角スペースで始まらない
 const WHITE_SPACE_REG_EXP = /^(?!(\s|[[:blank:]])).*$/;
 
+type FormValues = {
+  atcoderUserName: string;
+  aizuUserName: string;
+};
+
 export const Setting: React.FC<Props> = () => {
-  const { register, watch, setValue, handleSubmit, errors } = useForm({
+  const {
+    register,
+    watch,
+    setValue,
+    handleSubmit,
+    errors,
+  } = useForm<FormValues>({
     shouldUnregister: false,
   });
 
   const { enqueueSnackbar } = useSnackbar();
   const userNames = watch();
 
-  const onSubmit = () => {
+  const onSubmit: SubmitHandler<FormValues> = () => {
     enqueueSnackbar('Your User Name is updated', {
       variant: 'success',
       autoHideDuration: 1500,
@@ -61,7 +72,7 @@ export const Setting: React.FC<Props> = () => {
             <Box py={1} />
             <TextField
               name="atcoderUserName"
-              error={errors.atcoderUserName}
+              error={!!errors.atcoderUserName}
               helperText={errors.atcoderUserName?.['message']}
               inputRef={register({
                 pattern: {
@@ -82,7 +93,7 @@ export const Setting: React.FC<Props> = () => {
             <Box py={1} />
             <TextField
               name="aizuUserName"
-              error={errors.aizuUserName}
+              error={!!errors.aizuUserName}
               helperText={errors.aizuUserName?.['message']}
               inputRef={register({
                 pattern: {
