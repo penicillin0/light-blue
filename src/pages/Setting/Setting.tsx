@@ -24,14 +24,12 @@ type FormValues = {
 };
 
 export const Setting: React.FC<Props> = ({ userNames, updateUserNames }) => {
-  const {
-    register,
-    watch,
-    setValue,
-    handleSubmit,
-    errors,
-  } = useForm<FormValues>({
+  const { register, handleSubmit, errors } = useForm<FormValues>({
     shouldUnregister: false,
+    defaultValues: {
+      atcoderUserName: userNames.atcoderUserName ?? undefined,
+      aizuUserName: userNames.aizuUserName ?? undefined,
+    },
   });
 
   const { enqueueSnackbar } = useSnackbar();
