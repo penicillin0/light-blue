@@ -52,26 +52,25 @@ const Problems: React.FC<Props> = ({ userNames }) => {
     if (aizuUserName === null) {
       return;
     }
-      const resAizu: AizuProblemType[] = await getAizuStatus(aizuUserName);
-      setAizuSolvedDatas(resAizu);
+    const resAizu: AizuProblemType[] = await getAizuStatus(aizuUserName);
+    setAizuSolvedDatas(resAizu);
   };
 
-  const handleGetUserInfo = async () => {
-    if (!userNames) {
-      return;
-    }
-    await getAtCoderInfo(userNames.atcoderUserName);
-    await getAizuInfo(userNames.aizuUserName);
-  };
+  React.useEffect(() => {
+    const handleGetUserInfo = async () => {
+      if (!userNames) {
+        return;
+      }
+      await getAtCoderInfo(userNames.atcoderUserName);
+      await getAizuInfo(userNames.aizuUserName);
+    };
+    handleGetUserInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <TableContainerWrapper>
       こんにちは{userNames?.atcoderUserName} さん
-      <br />
-      <Button variant="contained" color="secondary" onClick={handleGetUserInfo}>
-        apiを叩く
-      </Button>
-      <br />
       <TableContainer>
         <Table size="medium" aria-label="a dense table">
           <TableHead>
