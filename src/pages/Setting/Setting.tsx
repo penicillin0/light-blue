@@ -35,7 +35,7 @@ export const Setting: React.FC<Props> = ({ handleUserNames }) => {
     if (localStorage.getItem('lightBlue_aizuUserName') !== null) {
       setValue('aizuUserName', localStorage.getItem('lightBlue_aizuUserName'));
     }
-  }, []);
+  }, [setValue]);
 
   const handleOnClick = () => {
     if ('atcoderUserName' in userNames) {
