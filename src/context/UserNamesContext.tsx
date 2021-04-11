@@ -26,7 +26,7 @@ export const UserNamesProvider: React.FC = (props) => {
   const [userNames, setUserNames] = useState<UserInfoType>(() => {
     return {
       atcoderUserName: window.localStorage.getItem('lightBlue_atcoderUserName'),
-      aizuUserName: window.localStorage.getItem('lightBlue_atcoderUserName'),
+      aizuUserName: window.localStorage.getItem('lightBlue_aizuUserName'),
     };
   });
 
