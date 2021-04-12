@@ -4,10 +4,10 @@ import { COLOR } from '../../utils/ColorUtils';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Box } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { UserInfoType } from '../../types/user';
+import { UserInfoType } from '../../types/User';
 
 type Props = {
-  userNames: UserInfoType | undefined;
+  userNames: UserInfoType;
 };
 
 const Header: React.FC<Props> = ({ userNames }) => {
