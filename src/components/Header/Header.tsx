@@ -51,8 +51,10 @@ const PageContainer = styled.div`
   width: 100%;
   height: 96px;
   background-color: ${COLOR.PRIMERY_COLOR};
+  opacity: 0.95;
   display: flex;
   align-items: center;
+  box-shadow: 0px 1px 12px ${COLOR.GREY};
 `;
 
 const LeftContainer = styled.div`
