@@ -22,8 +22,6 @@ export const Header: React.FC<Props> = ({ userNames }) => {
     [userNames]
   );
 
-  console.log({ userNames });
-
   return (
     <PageContainer>
       <LeftContainer>
@@ -47,7 +45,7 @@ export const Header: React.FC<Props> = ({ userNames }) => {
             </Link>
           ) : (
             <AccountNameContainer href={aizuUserPageLink}>
-              {userNames.atcoderUserName}
+              {userNames.aizuUserName}
             </AccountNameContainer>
           )}
         </DownContainer>
@@ -77,7 +75,6 @@ const PageContainer = styled.div`
   align-items: center;
   box-shadow: 0px 1px 12px ${COLOR.GREY};
 `;
-
 const LeftContainer = styled.div`
   width: 23%;
   text-align: left;
@@ -109,13 +106,11 @@ const DownContainer = styled.div``;
 const TitleContainer = styled.div`
   width: 50%;
 `;
-
 const RightContainer = styled.div`
   text-align: right;
   width: 23%;
   margin-right: 2%;
 `;
-
 const Title = styled.h1`
   width: 200px;
   margin: 0 auto;
@@ -124,7 +119,6 @@ const Title = styled.h1`
     color: ${COLOR.GREY};
   }
 `;
-
 const SettingIconWrap = styled(SettingsIcon)`
   color: ${COLOR.DARK};
   :hover {
