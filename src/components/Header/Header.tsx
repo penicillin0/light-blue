@@ -44,7 +44,7 @@ const Header: React.FC<Props> = ({ userNames }) => {
             </Link>
           ) : (
             <AccountNameContainer href={aizuUserPageLink}>
-              {userNames.atcoderUserName}
+              {userNames.aizuUserName}
             </AccountNameContainer>
           )}
         </DownContainer>
