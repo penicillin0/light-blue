@@ -76,7 +76,7 @@ const PageContainer = styled.div`
   box-shadow: 0px 1px 12px ${COLOR.GREY};
 `;
 const LeftContainer = styled.div`
-  width: 23%;
+  width: 25%;
   text-align: left;
   margin-left: 2%;
   display: flex;
@@ -85,11 +85,13 @@ const LeftContainer = styled.div`
 `;
 
 const AccountContainer = styled.div`
-  min-width: 80px;
+  font-size: 1vw;
+  min-width: 6vw;
   display: inline-block;
 `;
 
 const AccountNameContainer = styled.a`
+  font-size: 1vw;
   text-decoration: none;
   color: ${COLOR.DARK};
   :hover {
@@ -104,11 +106,11 @@ const UpContainer = styled.div`
 const DownContainer = styled.div``;
 
 const TitleContainer = styled.div`
-  width: 50%;
+  width: 40%;
 `;
 const RightContainer = styled.div`
   text-align: right;
-  width: 23%;
+  width: 25%;
   margin-right: 2%;
 `;
 const Title = styled.h1`

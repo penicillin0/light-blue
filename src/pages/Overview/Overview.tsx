@@ -12,17 +12,19 @@ export const Overview: React.FC<Props> = ({}) => {
       <Box my={5} mx={10}>
         <Typography variant="h4">問題集一覧</Typography>
       </Box>
-      <CardContainer>
-        {[1, 2, 3, 4].map(() => (
-          <ProblemCardContainer>
-            <ProblemsCard
-              title="AtCoder Bignner Selection"
-              description="これは説明文です。"
-              problemNum={10}
-            ></ProblemsCard>
-          </ProblemCardContainer>
-        ))}
-      </CardContainer>
+      <CardContainerWapper>
+        <CardContainer>
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13].map(() => (
+            <ProblemCardContainer>
+              <ProblemsCard
+                title="AtCoder Bignner Selection"
+                description="これは説明文です。"
+                problemNum={10}
+              ></ProblemsCard>
+            </ProblemCardContainer>
+          ))}
+        </CardContainer>
+      </CardContainerWapper>
     </PageContainer>
   );
 };
@@ -30,13 +32,20 @@ export const Overview: React.FC<Props> = ({}) => {
 const PageContainer = styled.div`
   background: ${COLOR.WHITE};
   height: 100vh;
-  padding: 120px 4vw;
+  padding: 120px 3vw;
+`;
+
+const CardContainerWapper = styled.div`
+  display: flex;
+  /* justify-content: center; */
+  /* background-color: black; */
 `;
 
 const CardContainer = styled.div`
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
+  /* width: auto; */
+  /* background-color: black; */
 `;
 
 const ProblemCardContainer = styled.div`

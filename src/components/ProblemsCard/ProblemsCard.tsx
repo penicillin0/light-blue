@@ -17,6 +17,7 @@ export const ProblemsCard: React.FC<Props> = ({
 };
 
 const CardContainer = styled.div`
+  font-size: 2vw;
   width: 19vw;
   height: 19vw;
   border-radius: 20px;

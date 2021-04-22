@@ -36,9 +36,9 @@ export const Setting: React.FC<Props> = ({ userNames, updateUserNames }) => {
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     updateUserNames(data);
-    enqueueSnackbar('Your User Name is updated', {
+    enqueueSnackbar('Updated', {
       variant: 'success',
-      autoHideDuration: 1500,
+      autoHideDuration: 1000,
       anchorOrigin: {
         vertical: 'top',
         horizontal: 'left',
