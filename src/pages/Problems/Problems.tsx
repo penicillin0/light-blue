@@ -26,7 +26,7 @@ type Props = {
   userNames: UserInfoType | null;
 };
 
-const Problems: React.FC<Props> = ({ userNames }) => {
+export const Problems: React.FC<Props> = ({ userNames }) => {
   const [atcoderSolvedDatas, setAtcoderSolvedDatas] = React.useState<
     AtCoderProblemType[]
   >([]);
@@ -161,5 +161,3 @@ const TableContainerWrapper = styled.div`
   background: ${COLOR.LIGHT_GREY};
   padding: 120px 10%;
 `;
-
-export { Problems };
