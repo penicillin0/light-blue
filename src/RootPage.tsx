@@ -13,7 +13,7 @@ export const RootPage: React.VFC = () => {
   return (
     <Router>
       <Header userNames={userNames} />
-      <Route exact path="/" render={() => <Problems userNames={userNames} />} />
+      <Route exact path="/" render={() => <Overview />} />
       <Route
         path="/setting"
         render={() => (
@@ -21,6 +21,10 @@ export const RootPage: React.VFC = () => {
         )}
       />
       <Route path="/Overview" render={() => <Overview />} />
+      <Route
+        path="/problems/:id"
+        render={() => <Problems userNames={userNames} />}
+      />
     </Router>
   );
 };
