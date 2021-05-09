@@ -8,7 +8,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import { useSnackbar } from 'notistack';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Link } from 'react-router-dom';
-import { UserInfoType } from '../../types/User';
+import { UserInfoType } from '../../types/user';
 
 type Props = {
   userNames: UserInfoType;
@@ -36,9 +36,9 @@ export const Setting: React.FC<Props> = ({ userNames, updateUserNames }) => {
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     updateUserNames(data);
-    enqueueSnackbar('Your User Name is updated', {
+    enqueueSnackbar('Updated', {
       variant: 'success',
-      autoHideDuration: 1500,
+      autoHideDuration: 1000,
       anchorOrigin: {
         vertical: 'top',
         horizontal: 'left',

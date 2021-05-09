@@ -1,19 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import { COLOR } from '../../utils/ColorUtils';
-import SettingsIcon from '@material-ui/icons/Settings';
+import ViewComfyIcon from '@material-ui/icons/ViewComfy';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Link } from 'react-router-dom';
-import { UserInfoType } from '../../types/User';
+import { UserInfoType } from '../../types/user';
+import { Box } from '@material-ui/core';
 
 type Props = {
   userNames: UserInfoType;
 };
 
-const Header: React.FC<Props> = ({ userNames }) => {
+export const Header: React.FC<Props> = ({ userNames }) => {
   const atcoderUserPageLink = React.useMemo(
     () => 'https://atcoder.jp/users/' + userNames?.atcoderUserName,
     [userNames]
   );
+
   const aizuUserPageLink = React.useMemo(
     () =>
       'https://judge.u-aizu.ac.jp/onlinejudge/user.jsp?id=' +
@@ -55,6 +58,10 @@ const Header: React.FC<Props> = ({ userNames }) => {
         </Link>
       </TitleContainer>
       <RightContainer>
+        <Link to="/Overview" style={{ textDecoration: 'none' }}>
+          <OverviewIconWrap fontSize="large" />
+        </Link>
+        <Box component="span" px={1} />
         <Link to="/setting" style={{ textDecoration: 'none' }}>
           <SettingIconWrap fontSize="large" />
         </Link>
@@ -62,6 +69,7 @@ const Header: React.FC<Props> = ({ userNames }) => {
     </PageContainer>
   );
 };
+
 const PageContainer = styled.div`
   z-index: 999;
   position: fixed;
@@ -81,21 +89,28 @@ const LeftContainer = styled.div`
   flex-direction: column;
   color: ${COLOR.DARK};
 `;
+
 const AccountContainer = styled.div`
-  min-width: 80px;
+  font-size: 1vw;
+  min-width: 6vw;
   display: inline-block;
 `;
+
 const AccountNameContainer = styled.a`
+  font-size: 1vw;
   text-decoration: none;
   color: ${COLOR.DARK};
   :hover {
     color: ${COLOR.GREY};
   }
 `;
+
 const UpContainer = styled.div`
   margin-bottom: 5px;
 `;
+
 const DownContainer = styled.div``;
+
 const TitleContainer = styled.div`
   width: 50%;
 `;
@@ -112,11 +127,17 @@ const Title = styled.h1`
     color: ${COLOR.GREY};
   }
 `;
-const SettingIconWrap = styled(SettingsIcon)`
+
+const OverviewIconWrap = styled(ViewComfyIcon)`
   color: ${COLOR.DARK};
   :hover {
     color: ${COLOR.GREY};
   }
 `;
 
-export { Header };
+const SettingIconWrap = styled(AccountCircleIcon)`
+  color: ${COLOR.DARK};
+  :hover {
+    color: ${COLOR.GREY};
+  }
+`;

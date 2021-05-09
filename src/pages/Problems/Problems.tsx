@@ -11,22 +11,31 @@ import {
 } from '@material-ui/core';
 import styled from 'styled-components';
 import { COLOR } from '../../utils/ColorUtils';
-import { problems } from '../../data/constants';
+import { programs } from '../../data/constants';
 import { getAtCoderStatus, getAizuStatus } from '../../api/apiClient';
-import { AizuProblemType, AtCoderProblemType } from '../../types/problem';
+import { AizuProblemType, AtCoderProblemType } from '../../types/response';
 import {
   getAtCoderDisplayStatus,
   getAizuDisplayStatus,
   getColorFromAtCoderStatus,
   getColorFromAizuStatus,
 } from '../../utils/functions';
-import { UserInfoType } from '../../types/User';
+import { UserInfoType } from '../../types/user';
+import { useParams } from 'react-router-dom';
 
 type Props = {
   userNames: UserInfoType | null;
 };
 
-const Problems: React.FC<Props> = ({ userNames }) => {
+type ParamTypes = {
+  id: string;
+};
+
+export const Problems: React.FC<Props> = ({ userNames }) => {
+  const params = useParams<ParamTypes>();
+  const id = Number(params.id);
+  const program = programs.find((program) => program.id === id);
+
   const [atcoderSolvedDatas, setAtcoderSolvedDatas] = React.useState<
     AtCoderProblemType[]
   >([]);
@@ -82,7 +91,7 @@ const Problems: React.FC<Props> = ({ userNames }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {problems.map((problem) => {
+            {program?.problems.map((problem) => {
               const endPoint = problem.url
                 .split('/')
                 .splice(-1)[0]
@@ -104,7 +113,7 @@ const Problems: React.FC<Props> = ({ userNames }) => {
               const atcoderLink = problem.url;
               return (
                 <TableRow key={problem.title} hover={true}>
-                  <TableCell align="right">{problem.problem_id}</TableCell>
+                  <TableCell align="right">{problem.id}</TableCell>
                   <TableCell component="th" scope="row">
                     {problem.title}
                   </TableCell>
@@ -158,8 +167,6 @@ const Problems: React.FC<Props> = ({ userNames }) => {
 };
 
 const TableContainerWrapper = styled.div`
-  background: ${COLOR.LIGHT_GREY};
+  background: ${COLOR.PRIMERY_HIGH_LIGHT_COLOR};
   padding: 120px 10%;
 `;
-
-export { Problems };
