@@ -1,54 +1,75 @@
-import { Box, Typography } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import React from 'react';
 import styled from 'styled-components';
 import { ProblemsCard } from '../../components/ProblemsCard/ProblemsCard';
 import { COLOR } from '../../utils/ColorUtils';
+import { programs } from '../../data/constants';
+import { useHistory } from 'react-router-dom';
+import media from 'styled-media-query';
 
 type Props = {};
 
-export const Overview: React.FC<Props> = ({}) => {
+export const Overview: React.FC<Props> = () => {
+  const history = useHistory();
+
+  const handleOnClick = (id: number) => () => {
+    history.push('/problems/' + id);
+  };
+
   return (
     <PageContainer>
-      <Box my={5} mx={10}>
-        <Typography variant="h4">問題集一覧</Typography>
+      <Box mt={5} mb={10} mx={10}>
+        <SubTitle>問題集一覧</SubTitle>
       </Box>
-      <CardContainerWapper>
-        <CardContainer>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13].map(() => (
-            <ProblemCardContainer>
-              <ProblemsCard
-                title="AtCoder Bignner Selection"
-                description="これは説明文です。"
-                problemNum={10}
-              ></ProblemsCard>
-            </ProblemCardContainer>
-          ))}
-        </CardContainer>
-      </CardContainerWapper>
+      <CardContainer>
+        {programs.map((program) => (
+          <ProblemCardContainer onClick={handleOnClick(program.id)}>
+            <ProblemsCard
+              title={program.title}
+              description={program.description}
+              problemNum={10}
+              backgroundColor={COLOR.SECONDARY_HIGH_LIGHT_COLOR}
+              boderColoder={COLOR.SECONDARY_COLOR}
+            ></ProblemsCard>
+          </ProblemCardContainer>
+        ))}
+      </CardContainer>
     </PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  background: ${COLOR.WHITE};
-  height: 100vh;
-  padding: 120px 3vw;
+const SubTitle = styled.p`
+  font-size: 36px;
+  ${media.lessThan('medium')`
+    font-size: 24px;
+  `}
 `;
 
-const CardContainerWapper = styled.div`
-  display: flex;
-  /* justify-content: center; */
-  /* background-color: black; */
+const PageContainer = styled.div`
+  background: ${COLOR.PRIMERY_HIGH_LIGHT_COLOR};
+  height: 130vh;
+  padding: 120px 20px 0px 20px;
 `;
 
 const CardContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  /* width: auto; */
-  /* background-color: black; */
+  display: grid;
+  gap: 36px;
+  ${media.lessThan('medium')`
+    gap: 24px;
+  `}
+  grid-template-columns: repeat(5, 1fr);
+  ${media.lessThan('huge')`
+    grid-template-columns: repeat(4, 1fr);
+  `}
+  ${media.lessThan('large')`
+    grid-template-columns: repeat(3, 1fr);
+  `}
+  ${media.lessThan('medium')`
+    grid-template-columns: repeat(2, 1fr);
+  `}
 `;
 
 const ProblemCardContainer = styled.div`
-  padding: 0 2vw;
-  margin-bottom: 5%;
+  display: flex;
+  justify-content: center;
 `;

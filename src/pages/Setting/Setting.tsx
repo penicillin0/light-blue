@@ -8,7 +8,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import { useSnackbar } from 'notistack';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Link } from 'react-router-dom';
-import { UserInfoType } from '../../types/User';
+import { UserInfoType } from '../../types/user';
 
 type Props = {
   userNames: UserInfoType;

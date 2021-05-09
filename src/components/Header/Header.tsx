@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { COLOR } from '../../utils/ColorUtils';
-import SettingsIcon from '@material-ui/icons/Settings';
+import ViewComfyIcon from '@material-ui/icons/ViewComfy';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Link } from 'react-router-dom';
-import { UserInfoType } from '../../types/User';
+import { UserInfoType } from '../../types/user';
+import { Box } from '@material-ui/core';
 
 type Props = {
   userNames: UserInfoType;
@@ -56,6 +58,10 @@ export const Header: React.FC<Props> = ({ userNames }) => {
         </Link>
       </TitleContainer>
       <RightContainer>
+        <Link to="/Overview" style={{ textDecoration: 'none' }}>
+          <OverviewIconWrap fontSize="large" />
+        </Link>
+        <Box component="span" px={1} />
         <Link to="/setting" style={{ textDecoration: 'none' }}>
           <SettingIconWrap fontSize="large" />
         </Link>
@@ -76,7 +82,7 @@ const PageContainer = styled.div`
   box-shadow: 0px 1px 12px ${COLOR.GREY};
 `;
 const LeftContainer = styled.div`
-  width: 25%;
+  width: 23%;
   text-align: left;
   margin-left: 2%;
   display: flex;
@@ -106,11 +112,11 @@ const UpContainer = styled.div`
 const DownContainer = styled.div``;
 
 const TitleContainer = styled.div`
-  width: 40%;
+  width: 50%;
 `;
 const RightContainer = styled.div`
   text-align: right;
-  width: 25%;
+  width: 23%;
   margin-right: 2%;
 `;
 const Title = styled.h1`
@@ -121,7 +127,15 @@ const Title = styled.h1`
     color: ${COLOR.GREY};
   }
 `;
-const SettingIconWrap = styled(SettingsIcon)`
+
+const OverviewIconWrap = styled(ViewComfyIcon)`
+  color: ${COLOR.DARK};
+  :hover {
+    color: ${COLOR.GREY};
+  }
+`;
+
+const SettingIconWrap = styled(AccountCircleIcon)`
   color: ${COLOR.DARK};
   :hover {
     color: ${COLOR.GREY};
