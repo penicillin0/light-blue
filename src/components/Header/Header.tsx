@@ -6,6 +6,9 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Link } from 'react-router-dom';
 import { UserInfoType } from '../../types/user';
 import { Box } from '@material-ui/core';
+import { Chip, Button } from '@material-ui/core';
+import FaceIcon from '@material-ui/icons/Face';
+import media from 'styled-media-query';
 
 type Props = {
   userNames: UserInfoType;
@@ -28,26 +31,42 @@ export const Header: React.FC<Props> = ({ userNames }) => {
     <PageContainer>
       <LeftContainer>
         <UpContainer>
-          <AccountContainer>AtCoder:</AccountContainer>
+          <AccountContainer>AtCoder</AccountContainer>
           {userNames.atcoderUserName === '' ? (
             <Link to="/setting" style={{ textDecoration: 'none' }}>
-              Login
+              <Button color="secondary" size="small">
+                Login
+              </Button>
             </Link>
           ) : (
             <AccountNameContainer href={atcoderUserPageLink}>
-              {userNames.atcoderUserName}
+              <Chip
+                variant="outlined"
+                icon={<FaceIcon />}
+                clickable
+                color="primary"
+                label={userNames.atcoderUserName}
+              />
             </AccountNameContainer>
           )}
         </UpContainer>
         <DownContainer>
-          <AccountContainer>Aizu:</AccountContainer>
+          <AccountContainer>Aizu</AccountContainer>
           {userNames.aizuUserName === '' ? (
             <Link to="/setting" style={{ textDecoration: 'none' }}>
-              Login
+              <Button color="secondary" size="small">
+                Login
+              </Button>
             </Link>
           ) : (
             <AccountNameContainer href={aizuUserPageLink}>
-              {userNames.aizuUserName}
+              <Chip
+                variant="outlined"
+                icon={<FaceIcon />}
+                clickable
+                color="primary"
+                label={userNames.aizuUserName}
+              />
             </AccountNameContainer>
           )}
         </DownContainer>
@@ -77,27 +96,27 @@ const PageContainer = styled.div`
   height: 96px;
   background-color: ${COLOR.PRIMERY_COLOR};
   opacity: 0.95;
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 190px 1fr 190px;
   box-shadow: 0px 1px 12px ${COLOR.GREY};
 `;
 const LeftContainer = styled.div`
-  width: 23%;
   text-align: left;
-  margin-left: 2%;
-  display: flex;
   flex-direction: column;
   color: ${COLOR.DARK};
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const AccountContainer = styled.div`
-  font-size: 1vw;
-  min-width: 6vw;
+  font-size: 18px;
+  min-width: 72px;
   display: inline-block;
 `;
 
 const AccountNameContainer = styled.a`
-  font-size: 1vw;
+  font-size: 18px;
   text-decoration: none;
   color: ${COLOR.DARK};
   :hover {
@@ -106,21 +125,32 @@ const AccountNameContainer = styled.a`
 `;
 
 const UpContainer = styled.div`
-  margin-bottom: 5px;
+  margin-bottom: 3px;
 `;
 
 const DownContainer = styled.div``;
 
 const TitleContainer = styled.div`
-  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const RightContainer = styled.div`
-  text-align: right;
-  width: 23%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-right: 2%;
 `;
-const Title = styled.h1`
+const Title = styled.p`
   width: 200px;
+  font-size: 42px;
+  ${media.lessThan('medium')`
+    font-size: 36px;
+  `}
+  ${media.lessThan('small')`
+    font-size: 30px;
+  `}
+  font-weight: bold;
   margin: 0 auto;
   color: ${COLOR.DARK};
   :hover {

@@ -10,7 +10,6 @@ import {
   TableBody,
 } from '@material-ui/core';
 import styled from 'styled-components';
-import { COLOR } from '../../utils/ColorUtils';
 import { programs } from '../../data/constants';
 import { getAtCoderStatus, getAizuStatus } from '../../api/apiClient';
 import { AizuProblemType, AtCoderProblemType } from '../../types/response';
@@ -167,6 +166,6 @@ export const Problems: React.FC<Props> = ({ userNames }) => {
 };
 
 const TableContainerWrapper = styled.div`
-  background: ${COLOR.PRIMERY_HIGH_LIGHT_COLOR};
-  padding: 120px 10%;
+  min-height: calc(100vh - 120px);
+  padding: 120px 10% 0px 10%;
 `;

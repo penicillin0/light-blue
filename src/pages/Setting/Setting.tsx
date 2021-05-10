@@ -126,7 +126,6 @@ const ReturnButtonContainer = styled.div`
 `;
 
 const PageContainer = styled.div`
-  background-color: ${COLOR.PRIMERY_HIGH_LIGHT_COLOR};
   width: 100%;
   height: 100vh;
 `;
