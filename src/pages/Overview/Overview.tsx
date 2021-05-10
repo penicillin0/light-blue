@@ -1,4 +1,3 @@
-import { Box } from '@material-ui/core';
 import React from 'react';
 import styled from 'styled-components';
 import { ProblemsCard } from '../../components/ProblemsCard/ProblemsCard';
@@ -18,9 +17,7 @@ export const Overview: React.FC<Props> = () => {
 
   return (
     <PageContainer>
-      <Box mt={5} mb={10} mx={10}>
-        <SubTitle>問題集一覧</SubTitle>
-      </Box>
+      <SubTitle>問題集一覧</SubTitle>
       <CardContainer>
         {programs.map((program) => (
           <ProblemCardContainer onClick={handleOnClick(program.id)}>
@@ -39,15 +36,14 @@ export const Overview: React.FC<Props> = () => {
 };
 
 const SubTitle = styled.p`
-  font-size: 36px;
+  font-size: 32px;
   ${media.lessThan('medium')`
     font-size: 24px;
   `}
 `;
 
 const PageContainer = styled.div`
-  background: ${COLOR.PRIMERY_HIGH_LIGHT_COLOR};
-  height: 130vh;
+  min-height: calc(100vh - 120px);
   padding: 120px 20px 0px 20px;
 `;
 

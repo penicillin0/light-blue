@@ -5,6 +5,8 @@ import { useUserNames, useUserNamesUpdate } from './context/UserNamesContext';
 import { Problems } from './pages/Problems/Problems';
 import { Setting } from './pages/Setting/Setting';
 import { Overview } from './pages/Overview/Overview';
+import styled from 'styled-components';
+import { COLOR } from './utils/ColorUtils';
 
 export const RootPage: React.VFC = () => {
   const userNames = useUserNames();
@@ -13,18 +15,24 @@ export const RootPage: React.VFC = () => {
   return (
     <Router>
       <Header userNames={userNames} />
-      <Route exact path="/" render={() => <Overview />} />
-      <Route
-        path="/setting"
-        render={() => (
-          <Setting userNames={userNames} updateUserNames={updateUserName} />
-        )}
-      />
-      <Route path="/Overview" render={() => <Overview />} />
-      <Route
-        path="/problems/:id"
-        render={() => <Problems userNames={userNames} />}
-      />
+      <Main>
+        <Route exact path="/" render={() => <Overview />} />
+        <Route
+          path="/setting"
+          render={() => (
+            <Setting userNames={userNames} updateUserNames={updateUserName} />
+          )}
+        />
+        <Route path="/Overview" render={() => <Overview />} />
+        <Route
+          path="/problems/:id"
+          render={() => <Problems userNames={userNames} />}
+        />
+      </Main>
     </Router>
   );
 };
+
+const Main = styled.div`
+  background: ${COLOR.PRIMERY_HIGH_LIGHT_COLOR};
+`;
