@@ -97,10 +97,11 @@ const PageContainer = styled.div`
   background-color: ${COLOR.PRIMERY_COLOR};
   opacity: 0.95;
   display: grid;
-  grid-template-columns: 190px 1fr 190px;
+  grid-template-columns: 200px 1fr 200px;
   box-shadow: 0px 1px 12px ${COLOR.GREY};
 `;
 const LeftContainer = styled.div`
+  padding-left: 16px;
   text-align: left;
   flex-direction: column;
   color: ${COLOR.DARK};
