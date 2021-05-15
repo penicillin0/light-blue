@@ -37,6 +37,7 @@ export const Overview: React.FC<Props> = () => {
 
 const SubTitle = styled.p`
   font-size: 32px;
+  margin: 24px 0 24px 0;
   ${media.lessThan('medium')`
     font-size: 24px;
   `}
