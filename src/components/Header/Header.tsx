@@ -4,7 +4,7 @@ import { COLOR } from '../../utils/ColorUtils';
 import ViewComfyIcon from '@material-ui/icons/ViewComfy';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Link } from 'react-router-dom';
-import { UserInfoType } from '../../types/user';
+import { UserInfoType } from '../../types/tmp';
 import { Box } from '@material-ui/core';
 import { Chip, Button } from '@material-ui/core';
 import FaceIcon from '@material-ui/icons/Face';

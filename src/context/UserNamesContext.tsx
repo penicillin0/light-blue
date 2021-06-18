@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UserInfoType } from '../types/user';
+import { UserInfoType } from '../types/tmp';
 
 const UserNamesContext = React.createContext<UserInfoType | null>(null);
 const UserNamesUpdateContext = React.createContext<

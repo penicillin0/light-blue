@@ -21,7 +21,7 @@ import {
   getColorFromAtCoderStatus,
   getColorFromAizuStatus,
 } from '../../utils/functions';
-import { UserInfoType } from '../../types/user';
+import { UserInfoType } from '../../types/tmp';
 import { useParams, Link as DomLink } from 'react-router-dom';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Description } from './internal/Description/Description';
